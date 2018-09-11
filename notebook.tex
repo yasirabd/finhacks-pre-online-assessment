@@ -1,0 +1,2232 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Problem 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{Author: Yasir
+Abdurrahman}\label{author-yasir-abdurrahman}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{color\PYZus{}codes}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataset2/train2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Dataset}\label{dataset}
+
+\subsubsection{Description}\label{description}
+
+Dataset 2 berikut merupakan data loan 1000 nasabah bank dengan variabel
+target pada data ini adalah \texttt{default}, variabel biner yang
+menjadi indikasi loan/ pinjaman lunas (berhasil dilunasi pembayarannya)
+atau tidak.
+
+\subsubsection{Variables Glossary}\label{variables-glossary}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{checking\_balance} dan \texttt{savings\_balance}: Status dari
+  account checking/saving
+\item
+  \texttt{credit\_history}: kategori histori kredit meliputi critical,
+  good, perfect, poor atau very good
+\item
+  \texttt{purpose}: tujuan kredit untuk car(new), car(used), education,
+  furniture atau renovations
+\item
+  \texttt{employment\_duration}: lama bekerja
+\item
+  \texttt{percent\_of\_income}: Installment rate dalam persentase
+  disposable income
+\item
+  \texttt{years\_at\_residence}: lama tinggal
+\item
+  \texttt{age}: usia nasabah
+\item
+  \texttt{other\_credit}: installment/ cicilan lainnya
+\item
+  \texttt{housing}: kategori status tempat tinggal meliputi rent, own,
+  atau free
+\item
+  \texttt{job}: jenis perkerjaan masuk dalam kategori management,
+  skilled, unskilled atau unemployed
+\item
+  \texttt{dependents}: banyaknya tanggungan
+\item
+  \texttt{phone}: status registrasi nomer telefon
+\item
+  \textbf{default}: status pembayaran default or non-default
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    Unnamed: 0 checking\_balance  months\_loan\_duration credit\_history  \textbackslash{}
+        0         508       1 - 200 DM                    15      very good   
+        1         307          unknown                    30           good   
+        2         427          unknown                    28       critical   
+        3         692       1 - 200 DM                    15           good   
+        4          85           < 0 DM                    10           good   
+        
+                        purpose  amount savings\_balance employment\_duration  \textbackslash{}
+        0                   car    6850    100 - 500 DM          unemployed   
+        1                   car    4811         unknown         4 - 7 years   
+        2  furniture/appliances    2743        < 100 DM           > 7 years   
+        3           renovations    2631    100 - 500 DM         1 - 4 years   
+        4  furniture/appliances    2315        < 100 DM           > 7 years   
+        
+           percent\_of\_income  years\_at\_residence  age other\_credit housing  \textbackslash{}
+        0                  1                   2   34         none     own   
+        1                  2                   4   24        store    rent   
+        2                  4                   2   29         none     own   
+        3                  3                   2   25         none     own   
+        4                  3                   4   52         none     own   
+        
+           existing\_loans\_count         job  dependents phone default  
+        0                     1  management           2   yes     yes  
+        1                     1   unskilled           1    no      no  
+        2                     2     skilled           1    no      no  
+        3                     1   unskilled           1    no      no  
+        4                     1   unskilled           1    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 900 entries, 0 to 899
+Data columns (total 18 columns):
+Unnamed: 0              900 non-null int64
+checking\_balance        900 non-null object
+months\_loan\_duration    900 non-null int64
+credit\_history          900 non-null object
+purpose                 900 non-null object
+amount                  900 non-null int64
+savings\_balance         900 non-null object
+employment\_duration     900 non-null object
+percent\_of\_income       900 non-null int64
+years\_at\_residence      900 non-null int64
+age                     900 non-null int64
+other\_credit            900 non-null object
+housing                 900 non-null object
+existing\_loans\_count    900 non-null int64
+job                     900 non-null object
+dependents              900 non-null int64
+phone                   900 non-null object
+default                 900 non-null object
+dtypes: int64(8), object(10)
+memory usage: 126.6+ KB
+
+    \end{Verbatim}
+
+    \subsection{Question 7}\label{question-7}
+
+Variabel apa yang menjadi variabel paling tidak penting (most
+unimportant variable) dalam menentukan status default nasabah dalam
+model decision tree tersebut?
+
+\textbf{Answer}: \texttt{existing\_loans\_count}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} unknown       360
+        1 - 200 DM    242
+        < 0 DM        238
+        > 200 DM       60
+        Name: checking\_balance, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} none     732
+        bank     127
+        store     41
+        Name: other\_credit, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{existing\PYZus{}loans\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} count    900.000000
+        mean       1.411111
+        std        0.575635
+        min        1.000000
+        25\%        1.000000
+        50\%        1.000000
+        75\%        2.000000
+        max        4.000000
+        Name: existing\_loans\_count, dtype: float64
+\end{Verbatim}
+            
+    \section{Explore Dataset}\label{explore-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{used\PYZus{}variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percent\PYZus{}of\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{years\PYZus{}at\PYZus{}residence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dependents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{nasabah} \PY{o}{=} \PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{used\PYZus{}variables}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration  percent\_of\_income  years\_at\_residence  age  \textbackslash{}
+         0          unemployed                  1                   2   34   
+         1         4 - 7 years                  2                   4   24   
+         2           > 7 years                  4                   2   29   
+         3         1 - 4 years                  3                   2   25   
+         4           > 7 years                  3                   4   52   
+         
+           other\_credit housing         job  dependents phone default  
+         0         none     own  management           2   yes     yes  
+         1        store    rent   unskilled           1    no      no  
+         2         none     own     skilled           1    no      no  
+         3         none     own   unskilled           1    no      no  
+         4         none     own   unskilled           1    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{nasabah}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} checking\_balance       0
+         savings\_balance        0
+         credit\_history         0
+         purpose                0
+         employment\_duration    0
+         percent\_of\_income      0
+         years\_at\_residence     0
+         age                    0
+         other\_credit           0
+         housing                0
+         job                    0
+         dependents             0
+         phone                  0
+         default                0
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{nasabah}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}        percent\_of\_income  years\_at\_residence         age  dependents
+         count         900.000000          900.000000  900.000000  900.000000
+         mean            2.964444            2.835556   35.514444    1.158889
+         std             1.122558            1.107996   11.306962    0.365776
+         min             1.000000            1.000000   19.000000    1.000000
+         25\%             2.000000            2.000000   27.000000    1.000000
+         50\%             3.000000            3.000000   33.000000    1.000000
+         75\%             4.000000            4.000000   42.000000    1.000000
+         max             4.000000            4.000000   75.000000    2.000000
+\end{Verbatim}
+            
+    \section{Preprocessing Data Train}\label{preprocessing-data-train}
+
+\textbf{Note}: Preprocessing can be optimize using Pipeline for
+simplicty of codes
+
+    \subsection{Categorical Data}\label{categorical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{cat\PYZus{}nasabah} \PY{o}{=} \PY{n}{nasabah}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration other\_credit housing         job phone default  
+         0          unemployed         none     own  management   yes     yes  
+         1         4 - 7 years        store    rent   unskilled    no      no  
+         2           > 7 years         none     own     skilled    no      no  
+         3         1 - 4 years         none     own   unskilled    no      no  
+         4           > 7 years         none     own   unskilled    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{list\PYZus{}cat\PYZus{}nasabah} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} ['checking\_balance',
+          'savings\_balance',
+          'credit\_history',
+          'employment\_duration',
+          'phone',
+          'default']
+\end{Verbatim}
+            
+    \subsubsection{Data interval}\label{data-interval}
+
+    Change data into numerical using Label Encoding
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} unknown       360
+         1 - 200 DM    242
+         < 0 DM        238
+         > 200 DM       60
+         Name: checking\_balance, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}unknown\PYZsq{} = 0, \PYZsq{}\PYZlt{} 0 DM\PYZsq{} = 1, \PYZsq{}1 \PYZhy{} 200 DM\PYZsq{} = 2, \PYZsq{}\PYZgt{} 200 DM\PYZsq{} = 3 }
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 0 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 \PYZhy{} 200 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 200 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration other\_credit housing         job phone default  \textbackslash{}
+         0          unemployed         none     own  management   yes     yes   
+         1         4 - 7 years        store    rent   unskilled    no      no   
+         2           > 7 years         none     own     skilled    no      no   
+         3         1 - 4 years         none     own   unskilled    no      no   
+         4           > 7 years         none     own   unskilled    no      no   
+         
+            checking\_balance\_num  
+         0                     2  
+         1                     0  
+         2                     0  
+         3                     2  
+         4                     1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} < 100 DM         530
+         unknown          174
+         100 - 500 DM      95
+         500 - 1000 DM     56
+         > 1000 DM         45
+         Name: savings\_balance, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}unknown\PYZsq{} = 0, \PYZsq{}\PYZlt{} 100 DM\PYZsq{} = 1, \PYZsq{}100 \PYZhy{} 500 DM\PYZsq{} = 2, \PYZsq{}500 \PYZhy{} 1000 DM\PYZsq{} = 3, \PYZsq{}\PYZgt{} 1000 DM\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 100 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100 \PYZhy{} 500 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{500 \PYZhy{} 1000 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 1000 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration other\_credit housing         job phone default  \textbackslash{}
+         0          unemployed         none     own  management   yes     yes   
+         1         4 - 7 years        store    rent   unskilled    no      no   
+         2           > 7 years         none     own     skilled    no      no   
+         3         1 - 4 years         none     own   unskilled    no      no   
+         4           > 7 years         none     own   unskilled    no      no   
+         
+            checking\_balance\_num  savings\_balance\_num  
+         0                     2                    2  
+         1                     0                    0  
+         2                     0                    1  
+         3                     2                    2  
+         4                     1                    1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} good         473
+         critical     260
+         poor          84
+         very good     45
+         perfect       38
+         Name: credit\_history, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}critical\PYZsq{} = 0, \PYZsq{}poor\PYZsq{} = 1, \PYZsq{}good\PYZsq{} = 2, \PYZsq{}very good\PYZsq{} = 3, \PYZsq{}perfect\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{critical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{very good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perfect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration other\_credit housing         job phone default  \textbackslash{}
+         0          unemployed         none     own  management   yes     yes   
+         1         4 - 7 years        store    rent   unskilled    no      no   
+         2           > 7 years         none     own     skilled    no      no   
+         3         1 - 4 years         none     own   unskilled    no      no   
+         4           > 7 years         none     own   unskilled    no      no   
+         
+            checking\_balance\_num  savings\_balance\_num  credit\_history\_num  
+         0                     2                    2                   3  
+         1                     0                    0                   2  
+         2                     0                    1                   0  
+         3                     2                    2                   2  
+         4                     1                    1                   2  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 1 - 4 years    304
+         > 7 years      227
+         4 - 7 years    157
+         < 1 year       155
+         unemployed      57
+         Name: employment\_duration, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}unemployed\PYZsq{} = 0, \PYZsq{}\PYZlt{} 1 year\PYZsq{} = 1, \PYZsq{}1 \PYZhy{} 4 years\PYZsq{} = 2, \PYZsq{}4 \PYZhy{} 7 years\PYZsq{} = 3, \PYZsq{}\PYZgt{} 7 years\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unemployed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 1 year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 \PYZhy{} 4 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4 \PYZhy{} 7 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 7 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good                   car   
+         1          unknown         unknown           good                   car   
+         2          unknown        < 100 DM       critical  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM           good           renovations   
+         4           < 0 DM        < 100 DM           good  furniture/appliances   
+         
+           employment\_duration other\_credit housing         job phone default  \textbackslash{}
+         0          unemployed         none     own  management   yes     yes   
+         1         4 - 7 years        store    rent   unskilled    no      no   
+         2           > 7 years         none     own     skilled    no      no   
+         3         1 - 4 years         none     own   unskilled    no      no   
+         4           > 7 years         none     own   unskilled    no      no   
+         
+            checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    2                   3   
+         1                     0                    0                   2   
+         2                     0                    1                   0   
+         3                     2                    2                   2   
+         4                     1                    1                   2   
+         
+            employment\_duration\_num  
+         0                        0  
+         1                        3  
+         2                        4  
+         3                        2  
+         4                        4  
+\end{Verbatim}
+            
+    \subsubsection{Data Categorical}\label{data-categorical}
+
+    Change data into numerical using One Hot Encoding
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} furniture/appliances    419
+         car                     315
+         business                 88
+         education                48
+         renovations              21
+         car0                      9
+         Name: purpose, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{cat\PYZus{}nasabah} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}   checking\_balance savings\_balance credit\_history employment\_duration  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed   
+         1          unknown         unknown           good         4 - 7 years   
+         2          unknown        < 100 DM       critical           > 7 years   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years   
+         4           < 0 DM        < 100 DM           good           > 7 years   
+         
+           other\_credit housing         job phone default  checking\_balance\_num  \textbackslash{}
+         0         none     own  management   yes     yes                     2   
+         1        store    rent   unskilled    no      no                     0   
+         2         none     own     skilled    no      no                     0   
+         3         none     own   unskilled    no      no                     2   
+         4         none     own   unskilled    no      no                     1   
+         
+            savings\_balance\_num  credit\_history\_num  employment\_duration\_num  \textbackslash{}
+         0                    2                   3                        0   
+         1                    0                   2                        3   
+         2                    1                   0                        4   
+         3                    2                   2                        2   
+         4                    1                   2                        4   
+         
+            purpose\_business  purpose\_car  purpose\_car0  purpose\_education  \textbackslash{}
+         0                 0            1             0                  0   
+         1                 0            1             0                  0   
+         2                 0            0             0                  0   
+         3                 0            0             0                  0   
+         4                 0            0             0                  0   
+         
+            purpose\_furniture/appliances  purpose\_renovations  
+         0                             0                    0  
+         1                             0                    0  
+         2                             1                    0  
+         3                             0                    1  
+         4                             1                    0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} none     732
+         bank     127
+         store     41
+         Name: other\_credit, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{cat\PYZus{}nasabah} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}   checking\_balance savings\_balance credit\_history employment\_duration housing  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed     own   
+         1          unknown         unknown           good         4 - 7 years    rent   
+         2          unknown        < 100 DM       critical           > 7 years     own   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years     own   
+         4           < 0 DM        < 100 DM           good           > 7 years     own   
+         
+                   job phone default  checking\_balance\_num  savings\_balance\_num  \textbackslash{}
+         0  management   yes     yes                     2                    2   
+         1   unskilled    no      no                     0                    0   
+         2     skilled    no      no                     0                    1   
+         3   unskilled    no      no                     2                    2   
+         4   unskilled    no      no                     1                    1   
+         
+                   {\ldots}          employment\_duration\_num  purpose\_business  purpose\_car  \textbackslash{}
+         0         {\ldots}                                0                 0            1   
+         1         {\ldots}                                3                 0            1   
+         2         {\ldots}                                4                 0            0   
+         3         {\ldots}                                2                 0            0   
+         4         {\ldots}                                4                 0            0   
+         
+            purpose\_car0  purpose\_education  purpose\_furniture/appliances  \textbackslash{}
+         0             0                  0                             0   
+         1             0                  0                             0   
+         2             0                  0                             1   
+         3             0                  0                             0   
+         4             0                  0                             1   
+         
+            purpose\_renovations  other\_credit\_bank  other\_credit\_none  \textbackslash{}
+         0                    0                  0                  1   
+         1                    0                  0                  0   
+         2                    0                  0                  1   
+         3                    1                  0                  1   
+         4                    0                  0                  1   
+         
+            other\_credit\_store  
+         0                   0  
+         1                   1  
+         2                   0  
+         3                   0  
+         4                   0  
+         
+         [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} own      639
+         rent     163
+         other     98
+         Name: housing, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{cat\PYZus{}nasabah} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}   checking\_balance savings\_balance credit\_history employment\_duration  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed   
+         1          unknown         unknown           good         4 - 7 years   
+         2          unknown        < 100 DM       critical           > 7 years   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years   
+         4           < 0 DM        < 100 DM           good           > 7 years   
+         
+                   job phone default  checking\_balance\_num  savings\_balance\_num  \textbackslash{}
+         0  management   yes     yes                     2                    2   
+         1   unskilled    no      no                     0                    0   
+         2     skilled    no      no                     0                    1   
+         3   unskilled    no      no                     2                    2   
+         4   unskilled    no      no                     1                    1   
+         
+            credit\_history\_num      {\ldots}       purpose\_car0  purpose\_education  \textbackslash{}
+         0                   3      {\ldots}                  0                  0   
+         1                   2      {\ldots}                  0                  0   
+         2                   0      {\ldots}                  0                  0   
+         3                   2      {\ldots}                  0                  0   
+         4                   2      {\ldots}                  0                  0   
+         
+            purpose\_furniture/appliances  purpose\_renovations  other\_credit\_bank  \textbackslash{}
+         0                             0                    0                  0   
+         1                             0                    0                  0   
+         2                             1                    0                  0   
+         3                             0                    1                  0   
+         4                             1                    0                  0   
+         
+            other\_credit\_none  other\_credit\_store  housing\_other  housing\_own  \textbackslash{}
+         0                  1                   0              0            1   
+         1                  0                   1              0            0   
+         2                  1                   0              0            1   
+         3                  1                   0              0            1   
+         4                  1                   0              0            1   
+         
+            housing\_rent  
+         0             0  
+         1             1  
+         2             0  
+         3             0  
+         4             0  
+         
+         [5 rows x 23 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} skilled       567
+         unskilled     186
+         management    126
+         unemployed     21
+         Name: job, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{cat\PYZus{}nasabah} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}   checking\_balance savings\_balance credit\_history employment\_duration phone  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed   yes   
+         1          unknown         unknown           good         4 - 7 years    no   
+         2          unknown        < 100 DM       critical           > 7 years    no   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years    no   
+         4           < 0 DM        < 100 DM           good           > 7 years    no   
+         
+           default  checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0     yes                     2                    2                   3   
+         1      no                     0                    0                   2   
+         2      no                     0                    1                   0   
+         3      no                     2                    2                   2   
+         4      no                     1                    1                   2   
+         
+            employment\_duration\_num      {\ldots}        other\_credit\_bank  \textbackslash{}
+         0                        0      {\ldots}                        0   
+         1                        3      {\ldots}                        0   
+         2                        4      {\ldots}                        0   
+         3                        2      {\ldots}                        0   
+         4                        4      {\ldots}                        0   
+         
+            other\_credit\_none  other\_credit\_store  housing\_other  housing\_own  \textbackslash{}
+         0                  1                   0              0            1   
+         1                  0                   1              0            0   
+         2                  1                   0              0            1   
+         3                  1                   0              0            1   
+         4                  1                   0              0            1   
+         
+            housing\_rent  job\_management  job\_skilled  job\_unemployed  job\_unskilled  
+         0             0               1            0               0              0  
+         1             1               0            0               0              1  
+         2             0               0            1               0              0  
+         3             0               0            0               0              1  
+         4             0               0            0               0              1  
+         
+         [5 rows x 26 columns]
+\end{Verbatim}
+            
+    \subsubsection{Data Boolean}\label{data-boolean}
+
+    Change 'yes' into 1 and 'no' into 0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} no     542
+         yes    358
+         Name: phone, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}yes\PYZsq{} = 1, \PYZsq{}no\PYZsq{} = 0}
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}   checking\_balance savings\_balance credit\_history employment\_duration phone  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed   yes   
+         1          unknown         unknown           good         4 - 7 years    no   
+         2          unknown        < 100 DM       critical           > 7 years    no   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years    no   
+         4           < 0 DM        < 100 DM           good           > 7 years    no   
+         
+           default  checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0     yes                     2                    2                   3   
+         1      no                     0                    0                   2   
+         2      no                     0                    1                   0   
+         3      no                     2                    2                   2   
+         4      no                     1                    1                   2   
+         
+            employment\_duration\_num    {\ldots}      other\_credit\_none  other\_credit\_store  \textbackslash{}
+         0                        0    {\ldots}                      1                   0   
+         1                        3    {\ldots}                      0                   1   
+         2                        4    {\ldots}                      1                   0   
+         3                        2    {\ldots}                      1                   0   
+         4                        4    {\ldots}                      1                   0   
+         
+            housing\_other  housing\_own  housing\_rent  job\_management  job\_skilled  \textbackslash{}
+         0              0            1             0               1            0   
+         1              0            0             1               0            0   
+         2              0            1             0               0            1   
+         3              0            1             0               0            0   
+         4              0            1             0               0            0   
+         
+            job\_unemployed  job\_unskilled  phone\_num  
+         0               0              0          1  
+         1               0              1          0  
+         2               0              0          0  
+         3               0              1          0  
+         4               0              1          0  
+         
+         [5 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} no     627
+         yes    273
+         Name: default, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}yes\PYZsq{} = 1, \PYZsq{}no\PYZsq{} = 0}
+         \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}   checking\_balance savings\_balance credit\_history employment\_duration phone  \textbackslash{}
+         0       1 - 200 DM    100 - 500 DM      very good          unemployed   yes   
+         1          unknown         unknown           good         4 - 7 years    no   
+         2          unknown        < 100 DM       critical           > 7 years    no   
+         3       1 - 200 DM    100 - 500 DM           good         1 - 4 years    no   
+         4           < 0 DM        < 100 DM           good           > 7 years    no   
+         
+           default  checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0     yes                     2                    2                   3   
+         1      no                     0                    0                   2   
+         2      no                     0                    1                   0   
+         3      no                     2                    2                   2   
+         4      no                     1                    1                   2   
+         
+            employment\_duration\_num     {\ldots}       other\_credit\_store  housing\_other  \textbackslash{}
+         0                        0     {\ldots}                        0              0   
+         1                        3     {\ldots}                        1              0   
+         2                        4     {\ldots}                        0              0   
+         3                        2     {\ldots}                        0              0   
+         4                        4     {\ldots}                        0              0   
+         
+            housing\_own  housing\_rent  job\_management  job\_skilled  job\_unemployed  \textbackslash{}
+         0            1             0               1            0               0   
+         1            0             1               0            0               0   
+         2            1             0               0            1               0   
+         3            1             0               0            0               0   
+         4            1             0               0            0               0   
+         
+            job\_unskilled  phone\_num  default\_num  
+         0              0          1            1  
+         1              1          0            0  
+         2              0          0            0  
+         3              1          0            0  
+         4              1          0            0  
+         
+         [5 rows x 28 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{cat\PYZus{}nasabah\PYZus{}train} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{list\PYZus{}cat\PYZus{}nasabah}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    2                   3   
+         1                     0                    0                   2   
+         2                     0                    1                   0   
+         3                     2                    2                   2   
+         4                     1                    1                   2   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        0                 0            1             0   
+         1                        3                 0            1             0   
+         2                        4                 0            0             0   
+         3                        2                 0            0             0   
+         4                        4                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             0                    0   
+         1                  0                             0                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    1   
+         4                  0                             1                    0   
+         
+               {\ldots}       other\_credit\_store  housing\_other  housing\_own  housing\_rent  \textbackslash{}
+         0     {\ldots}                        0              0            1             0   
+         1     {\ldots}                        1              0            0             1   
+         2     {\ldots}                        0              0            1             0   
+         3     {\ldots}                        0              0            1             0   
+         4     {\ldots}                        0              0            1             0   
+         
+            job\_management  job\_skilled  job\_unemployed  job\_unskilled  phone\_num  \textbackslash{}
+         0               1            0               0              0          1   
+         1               0            0               0              1          0   
+         2               0            1               0              0          0   
+         3               0            0               0              1          0   
+         4               0            0               0              1          0   
+         
+            default\_num  
+         0            1  
+         1            0  
+         2            0  
+         3            0  
+         4            0  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \subsection{Numerical Data}\label{numerical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{num\PYZus{}nasabah} \PY{o}{=} \PY{n}{nasabah}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}    percent\_of\_income  years\_at\_residence  age  dependents
+         0                  1                   2   34           2
+         1                  2                   4   24           1
+         2                  4                   2   29           1
+         3                  3                   2   25           1
+         4                  3                   4   52           1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} array([[<matplotlib.axes.\_subplots.AxesSubplot object at 0x0000019E3CDF5240>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x0000019E3D0A6978>],
+                [<matplotlib.axes.\_subplots.AxesSubplot object at 0x0000019E3D0BD0B8>,
+                 <matplotlib.axes.\_subplots.AxesSubplot object at 0x0000019E3D0DC748>]],
+               dtype=object)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Age}\label{age}
+
+Change into categorical data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x19e3d13a7f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} set up bins}
+         \PY{n+nb}{bin} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{75}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} use pd.cut}
+         \PY{n}{cat\PYZus{}age} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{bin}\PY{p}{)}
+         \PY{n}{cat\PYZus{}age} \PY{o}{=} \PY{n}{cat\PYZus{}age}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cat\PYZus{}age}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} concatenate age and its bin}
+         \PY{n}{num\PYZus{}nasabah} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}nasabah}\PY{p}{,} \PY{n}{cat\PYZus{}age}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} draw histogram plot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{num\PYZus{}nasabah}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}users\textbackslash{}yasir\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}categorical.py:1428: FutureWarning: remove\_na is deprecated and is a private function. Do not use.
+  stat\_data = remove\_na(group\_data)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} (15, 30]    369
+         (30, 45]    365
+         (45, 60]    128
+         (60, 75]     38
+         Name: cat\_age, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 900 entries, 0 to 899
+Data columns (total 5 columns):
+percent\_of\_income     900 non-null int64
+years\_at\_residence    900 non-null int64
+age                   900 non-null int64
+dependents            900 non-null int64
+cat\_age               900 non-null category
+dtypes: category(1), int64(4)
+memory usage: 29.1 KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}    percent\_of\_income  years\_at\_residence  age  dependents   cat\_age
+         0                  1                   2   34           2  (30, 45]
+         1                  2                   4   24           1  (15, 30]
+         2                  4                   2   29           1  (15, 30]
+         3                  3                   2   25           1  (15, 30]
+         4                  3                   4   52           1  (45, 60]
+\end{Verbatim}
+            
+    Change categorical age into numerical value
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} change into string \PYZsq{}cat\PYZus{}age\PYZsq{}}
+         \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}(15, 30]\PYZsq{} = 0, \PYZsq{}(30, 45]\PYZsq{} = 1, \PYZsq{}(45, 60]\PYZsq{} = 2, \PYZsq{}(60, 75]\PYZsq{} = 3}
+         \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{num\PYZus{}nasabah}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(15, 30]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(30, 45]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(45, 60]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(60, 75]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}    percent\_of\_income  years\_at\_residence  age  dependents   cat\_age  \textbackslash{}
+         0                  1                   2   34           2  (30, 45]   
+         1                  2                   4   24           1  (15, 30]   
+         2                  4                   2   29           1  (15, 30]   
+         3                  3                   2   25           1  (15, 30]   
+         4                  3                   4   52           1  (45, 60]   
+         
+            cat\_age\_num  
+         0            1  
+         1            0  
+         2            0  
+         3            0  
+         4            2  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{num\PYZus{}nasabah\PYZus{}train} \PY{o}{=} \PY{n}{num\PYZus{}nasabah}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    percent\_of\_income  years\_at\_residence  dependents  cat\_age\_num
+         0                  1                   2           2            1
+         1                  2                   4           1            0
+         2                  4                   2           1            0
+         3                  3                   2           1            0
+         4                  3                   4           1            2
+\end{Verbatim}
+            
+    \subsection{Merge categorical and numerical
+data}\label{merge-categorical-and-numerical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{nasabah\PYZus{}merge} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{cat\PYZus{}nasabah\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}nasabah\PYZus{}train}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{nasabah\PYZus{}merge}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    2                   3   
+         1                     0                    0                   2   
+         2                     0                    1                   0   
+         3                     2                    2                   2   
+         4                     1                    1                   2   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        0                 0            1             0   
+         1                        3                 0            1             0   
+         2                        4                 0            0             0   
+         3                        2                 0            0             0   
+         4                        4                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             0                    0   
+         1                  0                             0                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    1   
+         4                  0                             1                    0   
+         
+               {\ldots}       job\_management  job\_skilled  job\_unemployed  job\_unskilled  \textbackslash{}
+         0     {\ldots}                    1            0               0              0   
+         1     {\ldots}                    0            0               0              1   
+         2     {\ldots}                    0            1               0              0   
+         3     {\ldots}                    0            0               0              1   
+         4     {\ldots}                    0            0               0              1   
+         
+            phone\_num  default\_num  percent\_of\_income  years\_at\_residence  dependents  \textbackslash{}
+         0          1            1                  1                   2           2   
+         1          0            0                  2                   4           1   
+         2          0            0                  4                   2           1   
+         3          0            0                  3                   2           1   
+         4          0            0                  3                   4           1   
+         
+            cat\_age\_num  
+         0            1  
+         1            0  
+         2            0  
+         3            0  
+         4            2  
+         
+         [5 rows x 26 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{nasabah\PYZus{}prepared} \PY{o}{=} \PY{n}{nasabah\PYZus{}merge}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{nasabah\PYZus{}prepared}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    2                   3   
+         1                     0                    0                   2   
+         2                     0                    1                   0   
+         3                     2                    2                   2   
+         4                     1                    1                   2   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        0                 0            1             0   
+         1                        3                 0            1             0   
+         2                        4                 0            0             0   
+         3                        2                 0            0             0   
+         4                        4                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             0                    0   
+         1                  0                             0                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    1   
+         4                  0                             1                    0   
+         
+               {\ldots}       housing\_rent  job\_management  job\_skilled  job\_unemployed  \textbackslash{}
+         0     {\ldots}                  0               1            0               0   
+         1     {\ldots}                  1               0            0               0   
+         2     {\ldots}                  0               0            1               0   
+         3     {\ldots}                  0               0            0               0   
+         4     {\ldots}                  0               0            0               0   
+         
+            job\_unskilled  phone\_num  percent\_of\_income  years\_at\_residence  \textbackslash{}
+         0              0          1                  1                   2   
+         1              1          0                  2                   4   
+         2              0          0                  4                   2   
+         3              1          0                  3                   2   
+         4              1          0                  3                   4   
+         
+            dependents  cat\_age\_num  
+         0           2            1  
+         1           1            0  
+         2           1            0  
+         3           1            0  
+         4           1            2  
+         
+         [5 rows x 25 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{nasabah\PYZus{}labels} \PY{o}{=} \PY{n}{nasabah\PYZus{}merge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nasabah\PYZus{}labels}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 0    1
+         1    0
+         2    0
+         3    0
+         4    0
+         Name: default\_num, dtype: int32
+\end{Verbatim}
+            
+    \section{Decision Tree}\label{decision-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{tree\PYZus{}reg} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+         \PY{n}{tree\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{nasabah\PYZus{}prepared}\PY{p}{,} \PY{n}{nasabah\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=None,
+                     max\_features=None, max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=42,
+                     splitter='best')
+\end{Verbatim}
+            
+    \section{Fine-tune model}\label{fine-tune-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{from}  \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         
+         \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{tree\PYZus{}reg}\PY{p}{,} \PY{n}{nasabah\PYZus{}prepared}\PY{p}{,} \PY{n}{nasabah\PYZus{}labels}\PY{p}{,}
+                                  \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{tree\PYZus{}rmse\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{scores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{tree\PYZus{}rmse\PYZus{}scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} array([0.61124985, 0.5836603 , 0.62017367, 0.64978629, 0.54772256,
+                0.64978629, 0.51639778, 0.58058475, 0.60892242, 0.59962535])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{[}
+                       \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,}
+                       \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{\PYZcb{}}
+                      \PY{p}{]}
+         
+         \PY{n}{tree\PYZus{}class} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+         
+         \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{tree\PYZus{}class}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                                    \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{return\PYZus{}train\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{nasabah\PYZus{}prepared}\PY{p}{,} \PY{n}{nasabah\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} GridSearchCV(cv=5, error\_score='raise',
+                estimator=DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=None,
+                     max\_features=None, max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=42,
+                     splitter='best'),
+                fit\_params=None, iid=True, n\_jobs=1,
+                param\_grid=[\{'max\_depth': [1, 2, 3, 4, 5], 'max\_features': [2, 4, 6, 8]\}, \{'criterion': ['entropy'], 'max\_depth': [2, 4], 'max\_features': [2, 3, 4]\}],
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score=True,
+                scoring='neg\_mean\_squared\_error', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} \{'max\_depth': 3, 'max\_features': 6\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=3,
+                     max\_features=6, max\_leaf\_nodes=None, min\_impurity\_decrease=0.0,
+                     min\_impurity\_split=None, min\_samples\_leaf=1,
+                     min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+                     presort=False, random\_state=42, splitter='best')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{cvres} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}
+         \PY{k}{for} \PY{n}{mean\PYZus{}score}\PY{p}{,} \PY{n}{params} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{cvres}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{cvres}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{params}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}score}\PY{p}{)}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.5507570547286103 \{'max\_depth': 1, 'max\_features': 2\}
+0.5507570547286103 \{'max\_depth': 1, 'max\_features': 4\}
+0.5507570547286103 \{'max\_depth': 1, 'max\_features': 6\}
+0.5507570547286103 \{'max\_depth': 1, 'max\_features': 8\}
+0.5507570547286103 \{'max\_depth': 2, 'max\_features': 2\}
+0.5507570547286103 \{'max\_depth': 2, 'max\_features': 4\}
+0.5507570547286103 \{'max\_depth': 2, 'max\_features': 6\}
+0.5426273532033236 \{'max\_depth': 2, 'max\_features': 8\}
+0.5507570547286103 \{'max\_depth': 3, 'max\_features': 2\}
+0.5557777333511023 \{'max\_depth': 3, 'max\_features': 4\}
+0.5416025603090641 \{'max\_depth': 3, 'max\_features': 6\}
+0.5666666666666667 \{'max\_depth': 3, 'max\_features': 8\}
+0.5686240703077327 \{'max\_depth': 4, 'max\_features': 2\}
+0.5487359211051442 \{'max\_depth': 4, 'max\_features': 4\}
+0.5497474167490214 \{'max\_depth': 4, 'max\_features': 6\}
+0.5763872155263527 \{'max\_depth': 4, 'max\_features': 8\}
+0.5830951894845301 \{'max\_depth': 5, 'max\_features': 2\}
+0.5666666666666667 \{'max\_depth': 5, 'max\_features': 4\}
+0.563717817509592 \{'max\_depth': 5, 'max\_features': 6\}
+0.5617433182117573 \{'max\_depth': 5, 'max\_features': 8\}
+0.5507570547286103 \{'criterion': 'entropy', 'max\_depth': 2, 'max\_features': 2\}
+0.5577733510227171 \{'criterion': 'entropy', 'max\_depth': 2, 'max\_features': 3\}
+0.5507570547286103 \{'criterion': 'entropy', 'max\_depth': 2, 'max\_features': 4\}
+0.5647024782032473 \{'criterion': 'entropy', 'max\_depth': 4, 'max\_features': 2\}
+0.5557777333511023 \{'criterion': 'entropy', 'max\_depth': 4, 'max\_features': 3\}
+0.5487359211051442 \{'criterion': 'entropy', 'max\_depth': 4, 'max\_features': 4\}
+
+    \end{Verbatim}
+
+    \section{Test}\label{test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{df\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataset2/test2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{df\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}    Unnamed: 0 checking\_balance  months\_loan\_duration credit\_history  \textbackslash{}
+         0           2       1 - 200 DM                    48           good   
+         1          13       1 - 200 DM                    12           good   
+         2          16           < 0 DM                    24           good   
+         3          24       1 - 200 DM                    12       critical   
+         4          25          unknown                    10       critical   
+         
+                         purpose  amount savings\_balance employment\_duration  \textbackslash{}
+         0  furniture/appliances    5951        < 100 DM         1 - 4 years   
+         1  furniture/appliances    1567        < 100 DM         1 - 4 years   
+         2  furniture/appliances    1282    100 - 500 DM         1 - 4 years   
+         3                   car    1804    100 - 500 DM            < 1 year   
+         4  furniture/appliances    2069         unknown         1 - 4 years   
+         
+            percent\_of\_income  years\_at\_residence  age other\_credit housing  \textbackslash{}
+         0                  2                   2   22         none     own   
+         1                  1                   1   22         none     own   
+         2                  4                   2   32         none     own   
+         3                  3                   4   44         none     own   
+         4                  2                   1   26         none     own   
+         
+            existing\_loans\_count        job  dependents phone default  
+         0                     1    skilled           1    no     yes  
+         1                     1    skilled           1   yes      no  
+         2                     1  unskilled           1    no     yes  
+         3                     1    skilled           1    no      no  
+         4                     2    skilled           1    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{nasabah\PYZus{}test} \PY{o}{=} \PY{n}{df\PYZus{}test}\PY{p}{[}\PY{n}{used\PYZus{}variables}\PY{p}{]}
+         \PY{n}{nasabah\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM        < 100 DM           good  furniture/appliances   
+         1       1 - 200 DM        < 100 DM           good  furniture/appliances   
+         2           < 0 DM    100 - 500 DM           good  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM       critical                   car   
+         4          unknown         unknown       critical  furniture/appliances   
+         
+           employment\_duration  percent\_of\_income  years\_at\_residence  age  \textbackslash{}
+         0         1 - 4 years                  2                   2   22   
+         1         1 - 4 years                  1                   1   22   
+         2         1 - 4 years                  4                   2   32   
+         3            < 1 year                  3                   4   44   
+         4         1 - 4 years                  2                   1   26   
+         
+           other\_credit housing        job  dependents phone default  
+         0         none     own    skilled           1    no     yes  
+         1         none     own    skilled           1   yes      no  
+         2         none     own  unskilled           1    no     yes  
+         3         none     own    skilled           1    no      no  
+         4         none     own    skilled           1    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{nasabah\PYZus{}test}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 14 columns):
+checking\_balance       100 non-null object
+savings\_balance        100 non-null object
+credit\_history         100 non-null object
+purpose                100 non-null object
+employment\_duration    100 non-null object
+percent\_of\_income      100 non-null int64
+years\_at\_residence     100 non-null int64
+age                    100 non-null int64
+other\_credit           100 non-null object
+housing                100 non-null object
+job                    100 non-null object
+dependents             100 non-null int64
+phone                  100 non-null object
+default                100 non-null object
+dtypes: int64(4), object(10)
+memory usage: 11.0+ KB
+
+    \end{Verbatim}
+
+    \section{Preprocessing Data Test}\label{preprocessing-data-test}
+
+    \subsection{Categorical Data}\label{categorical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{nasabah\PYZus{}test}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:}   checking\_balance savings\_balance credit\_history               purpose  \textbackslash{}
+         0       1 - 200 DM        < 100 DM           good  furniture/appliances   
+         1       1 - 200 DM        < 100 DM           good  furniture/appliances   
+         2           < 0 DM    100 - 500 DM           good  furniture/appliances   
+         3       1 - 200 DM    100 - 500 DM       critical                   car   
+         4          unknown         unknown       critical  furniture/appliances   
+         
+           employment\_duration other\_credit housing        job phone default  
+         0         1 - 4 years         none     own    skilled    no     yes  
+         1         1 - 4 years         none     own    skilled   yes      no  
+         2         1 - 4 years         none     own  unskilled    no     yes  
+         3            < 1 year         none     own    skilled    no      no  
+         4         1 - 4 years         none     own    skilled    no      no  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} ['checking\_balance',
+          'savings\_balance',
+          'credit\_history',
+          'employment\_duration',
+          'phone',
+          'default']
+\end{Verbatim}
+            
+    \subsubsection{Data interval}\label{data-interval}
+
+    Change data into numerical using Label Encoding
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}unknown\PYZsq{} = 0, \PYZsq{}\PYZlt{} 0 DM\PYZsq{} = 1, \PYZsq{}1 \PYZhy{} 200 DM\PYZsq{} = 2, \PYZsq{}\PYZgt{} 200 DM\PYZsq{} = 3 }
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 0 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 \PYZhy{} 200 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 200 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} change \PYZsq{}unknown\PYZsq{} = 0, \PYZsq{}\PYZlt{} 100 DM\PYZsq{} = 1, \PYZsq{}100 \PYZhy{} 500 DM\PYZsq{} = 2, \PYZsq{}500 \PYZhy{} 1000 DM\PYZsq{} = 3, \PYZsq{}\PYZgt{} 1000 DM\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savings\PYZus{}balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unknown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 100 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100 \PYZhy{} 500 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{500 \PYZhy{} 1000 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 1000 DM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} change \PYZsq{}critical\PYZsq{} = 0, \PYZsq{}poor\PYZsq{} = 1, \PYZsq{}good\PYZsq{} = 2, \PYZsq{}very good\PYZsq{} = 3, \PYZsq{}perfect\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{credit\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{critical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{very good}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perfect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} change \PYZsq{}unemployed\PYZsq{} = 0, \PYZsq{}\PYZlt{} 1 year\PYZsq{} = 1, \PYZsq{}1 \PYZhy{} 4 years\PYZsq{} = 2, \PYZsq{}4 \PYZhy{} 7 years\PYZsq{} = 3, \PYZsq{}\PYZgt{} 7 years\PYZsq{} =  4}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{employment\PYZus{}duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unemployed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{} 1 year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 \PYZhy{} 4 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4 \PYZhy{} 7 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} 7 years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} cat\PYZus{}nasabah\PYZus{}test.head()}
+\end{Verbatim}
+
+
+    \subsubsection{Data Categorical}\label{data-categorical}
+
+    Change data into numerical using One Hot Encoding
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other\PYZus{}credit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} cat\PYZus{}nasabah\PYZus{}test.head()}
+\end{Verbatim}
+
+
+    \subsubsection{Data Boolean}\label{data-boolean}
+
+    Change 'yes' into 1 and 'no' into 0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} change \PYZsq{}yes\PYZsq{} = 1, \PYZsq{}no\PYZsq{} = 0}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} cat\PYZus{}nasabah\PYZus{}test.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{cat\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{list\PYZus{}cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    1                   2   
+         1                     2                    1                   2   
+         2                     1                    2                   2   
+         3                     2                    2                   0   
+         4                     0                    0                   0   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        2                 0            0             0   
+         1                        2                 0            0             0   
+         2                        2                 0            0             0   
+         3                        1                 0            1             0   
+         4                        2                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             1                    0   
+         1                  0                             1                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    0   
+         4                  0                             1                    0   
+         
+               {\ldots}       other\_credit\_store  housing\_other  housing\_own  housing\_rent  \textbackslash{}
+         0     {\ldots}                        0              0            1             0   
+         1     {\ldots}                        0              0            1             0   
+         2     {\ldots}                        0              0            1             0   
+         3     {\ldots}                        0              0            1             0   
+         4     {\ldots}                        0              0            1             0   
+         
+            job\_management  job\_skilled  job\_unemployed  job\_unskilled  phone\_num  \textbackslash{}
+         0               0            1               0              0          0   
+         1               0            1               0              0          1   
+         2               0            0               0              1          0   
+         3               0            1               0              0          0   
+         4               0            1               0              0          0   
+         
+            default\_num  
+         0            1  
+         1            0  
+         2            1  
+         3            0  
+         4            0  
+         
+         [5 rows x 22 columns]
+\end{Verbatim}
+            
+    \subsection{Numerical Data}\label{numerical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{num\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{nasabah\PYZus{}test}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:}    percent\_of\_income  years\_at\_residence  age  dependents
+         0                  2                   2   22           1
+         1                  1                   1   22           1
+         2                  4                   2   32           1
+         3                  3                   4   44           1
+         4                  2                   1   26           1
+\end{Verbatim}
+            
+    \subsubsection{Age}\label{age}
+
+Change into categorical data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x19e3cdd40b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_98_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} set up bins}
+         \PY{n+nb}{bin} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{75}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} use pd.cut}
+         \PY{n}{cat\PYZus{}age} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{bin}\PY{p}{)}
+         \PY{n}{cat\PYZus{}age} \PY{o}{=} \PY{n}{cat\PYZus{}age}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cat\PYZus{}age}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} concatenate age and its bin}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{cat\PYZus{}age}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} draw histogram plot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c:\textbackslash{}users\textbackslash{}yasir\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}seaborn\textbackslash{}categorical.py:1428: FutureWarning: remove\_na is deprecated and is a private function. Do not use.
+  stat\_data = remove\_na(group\_data)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Change categorical age into numerical value
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} change into string \PYZsq{}cat\PYZus{}age\PYZsq{}}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} change \PYZsq{}(15, 30]\PYZsq{} = 0, \PYZsq{}(30, 45]\PYZsq{} = 1, \PYZsq{}(45, 60]\PYZsq{} = 2, \PYZsq{}(60, 75]\PYZsq{} = 3}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(15, 30]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(30, 45]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} 
+                                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(45, 60]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(60, 75]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} num\PYZus{}nasabah\PYZus{}test.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{num\PYZus{}nasabah\PYZus{}test} \PY{o}{=} \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}    percent\_of\_income  years\_at\_residence  dependents  cat\_age\_num
+         0                  2                   2           1            0
+         1                  1                   1           1            0
+         2                  4                   2           1            1
+         3                  3                   4           1            1
+         4                  2                   1           1            0
+\end{Verbatim}
+            
+    \subsection{Merge categorical and numerical
+data}\label{merge-categorical-and-numerical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{nasabah\PYZus{}test\PYZus{}merge} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{cat\PYZus{}nasabah\PYZus{}test}\PY{p}{,} \PY{n}{num\PYZus{}nasabah\PYZus{}test}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{nasabah\PYZus{}test\PYZus{}merge}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    1                   2   
+         1                     2                    1                   2   
+         2                     1                    2                   2   
+         3                     2                    2                   0   
+         4                     0                    0                   0   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        2                 0            0             0   
+         1                        2                 0            0             0   
+         2                        2                 0            0             0   
+         3                        1                 0            1             0   
+         4                        2                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             1                    0   
+         1                  0                             1                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    0   
+         4                  0                             1                    0   
+         
+               {\ldots}       job\_management  job\_skilled  job\_unemployed  job\_unskilled  \textbackslash{}
+         0     {\ldots}                    0            1               0              0   
+         1     {\ldots}                    0            1               0              0   
+         2     {\ldots}                    0            0               0              1   
+         3     {\ldots}                    0            1               0              0   
+         4     {\ldots}                    0            1               0              0   
+         
+            phone\_num  default\_num  percent\_of\_income  years\_at\_residence  dependents  \textbackslash{}
+         0          0            1                  2                   2           1   
+         1          1            0                  1                   1           1   
+         2          0            1                  4                   2           1   
+         3          0            0                  3                   4           1   
+         4          0            0                  2                   1           1   
+         
+            cat\_age\_num  
+         0            0  
+         1            0  
+         2            1  
+         3            1  
+         4            0  
+         
+         [5 rows x 26 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{nasabah\PYZus{}test\PYZus{}prepared} \PY{o}{=} \PY{n}{nasabah\PYZus{}test\PYZus{}merge}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{nasabah\PYZus{}test\PYZus{}prepared}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:}    checking\_balance\_num  savings\_balance\_num  credit\_history\_num  \textbackslash{}
+         0                     2                    1                   2   
+         1                     2                    1                   2   
+         2                     1                    2                   2   
+         3                     2                    2                   0   
+         4                     0                    0                   0   
+         
+            employment\_duration\_num  purpose\_business  purpose\_car  purpose\_car0  \textbackslash{}
+         0                        2                 0            0             0   
+         1                        2                 0            0             0   
+         2                        2                 0            0             0   
+         3                        1                 0            1             0   
+         4                        2                 0            0             0   
+         
+            purpose\_education  purpose\_furniture/appliances  purpose\_renovations  \textbackslash{}
+         0                  0                             1                    0   
+         1                  0                             1                    0   
+         2                  0                             1                    0   
+         3                  0                             0                    0   
+         4                  0                             1                    0   
+         
+               {\ldots}       housing\_rent  job\_management  job\_skilled  job\_unemployed  \textbackslash{}
+         0     {\ldots}                  0               0            1               0   
+         1     {\ldots}                  0               0            1               0   
+         2     {\ldots}                  0               0            0               0   
+         3     {\ldots}                  0               0            1               0   
+         4     {\ldots}                  0               0            1               0   
+         
+            job\_unskilled  phone\_num  percent\_of\_income  years\_at\_residence  \textbackslash{}
+         0              0          0                  2                   2   
+         1              0          1                  1                   1   
+         2              1          0                  4                   2   
+         3              0          0                  3                   4   
+         4              0          0                  2                   1   
+         
+            dependents  cat\_age\_num  
+         0           1            0  
+         1           1            0  
+         2           1            1  
+         3           1            1  
+         4           1            0  
+         
+         [5 rows x 25 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{nasabah\PYZus{}test\PYZus{}labels} \PY{o}{=} \PY{n}{nasabah\PYZus{}test\PYZus{}merge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{nasabah\PYZus{}test\PYZus{}labels}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} 0    1
+         1    0
+         2    1
+         3    0
+         4    0
+         Name: default\_num, dtype: int32
+\end{Verbatim}
+            
+    \section{Predict}\label{predict}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{final\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{nasabah\PYZus{}test\PYZus{}prepared}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Accuracy Score}\label{accuracy-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{nasabah\PYZus{}test\PYZus{}labels}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} 0.69
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{n}{tn}\PY{p}{,} \PY{n}{fp}\PY{p}{,} \PY{n}{fn}\PY{p}{,} \PY{n}{tp} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{nasabah\PYZus{}test\PYZus{}labels}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{tn}\PY{p}{,} \PY{n}{fp}\PY{p}{,} \PY{n}{fn}\PY{p}{,} \PY{n}{tp}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+62 11 20 7
+
+    \end{Verbatim}
+
+    \subsection{Question 8}\label{question-8}
+
+Diberikan cross tabulasi perbandingan klasifikasi default hasil prediksi
+dan aktual menggunakan model decision tree sebagai berikut:
+
+\begin{longtable}[]{@{}lccll@{}}
+\toprule
+& & actual &\tabularnewline
+\midrule
+\endhead
+& & no & yes &\tabularnewline
+predicted & no & 57 & 12 &\tabularnewline
+& yes & 16 & 15 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+Berapa banyak observasi yang yang salah diklasifikasikan oleh model
+decision tree tersebut?
+
+\textbf{Answer}: 28
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} banyak observasi yang salah diklasifikasikan = False positive + False negative}
+         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{12} \PY{o}{+} \PY{l+m+mi}{16}
+         \PY{n}{result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} 28
+\end{Verbatim}
+            
+    \subsection{Question 9}\label{question-9}
+
+Berdasarkan tabel cross tabulasi sebelumnya, metrik pengukuran apa yang
+dapat digunakan sebagai pertimbangan pemilihan model?
+
+\textbf{Answer}: accuracy 72\%, recall 55\%
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{accuracy} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{57}\PY{o}{+}\PY{l+m+mi}{15}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{57}\PY{o}{+}\PY{l+m+mi}{12}\PY{o}{+}\PY{l+m+mi}{16}\PY{o}{+}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{accuracy}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} 0.72
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{precision} \PY{o}{=} \PY{l+m+mi}{15}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{+}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{precision}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} 0.4838709677419355
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{recall} \PY{o}{=} \PY{l+m+mi}{15}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{+}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{recall}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} 0.5555555555555556
+\end{Verbatim}
+            
+    \subsection{Question 10}\label{question-10}
+
+Metode yang tidak tepat untuk mengevaluasi masalah klasifikasi dan
+membandingkan performa klasifier adalah :
+
+\textbf{Answer}: R-squared
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
